@@ -472,15 +472,15 @@
         function sendBaptismData() {
             const form = document.getElementById('baptismForm');
             
-            // التحقق من صحة جميع المدخلات في النموذج
+            // 1. التحقق من صحة جميع المدخلات في النموذج
             if (!form.checkValidity()) {
-                // إذا كان هناك حقول غير صالحة، قم بتفعيل التحقق الافتراضي لـ Bootstrap
+                // تفعيل التحقق الافتراضي لـ Bootstrap
                 form.classList.add('was-validated');
                 alert('الرجاء إكمال جميع الحقول المطلوبة والموافقة على الشروط والأحكام.');
                 return;
             }
             
-            // جمع البيانات من النموذج
+            // 2. جمع البيانات من النموذج
             const requesterName = document.getElementById('requester-name').value;
             const requesterId = document.getElementById('requester-id').value;
             const providerName = document.getElementById('provider-name').value;
@@ -491,42 +491,37 @@
             const servicePrice = document.getElementById('servicePrice').value;
             const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'لم يُحدد';
             
-            const recipientEmail = 'almranllaktrwnyat@gmail.com‏';
-            const subject = 'طلب جديد لخدمة التعميد من منصة واسطة';
+            // 3. تحديد رقم الهاتف لخدمة الواتساب
+            const phoneNumber = '+966578051445'; // الرقم المطلوب: +966 57 805 1445
+
+            // 4. تنسيق نص الرسالة للواتساب (نستخدم الرموز `\n` للأسطر الجديدة)
+            let messageText = `*طلب فتح تعميد جديد من منصة واسطة* 🚀\n\n`;
             
-            // تنسيق نص جسم الرسالة
-            let body = `
-**بيانات طلب خدمة التعميد**
-
-**1- بيانات صاحب الطلب:**
-الاسم: ${requesterName}
-الرقم: ${requesterId}
-
-**2- بيانات مقدم الخدمة:**
-الاسم: ${providerName}
-الرقم: ${providerId}
-
-**3- تفاصيل الاتفاق:**
-تفاصيل الاتفاق:
-${agreementDetails}
-مدة التعميد: ${baptismPeriod} يوم
-يوم انتهاء التعميد: ${baptismEndDate}
-
-**4- تفاصيل الدفع:**
-مبلغ التعميد: ${servicePrice} ريال سعودي
-طريقة الدفع: ${paymentMethod}
-
-**ملاحظة:** تم إرسال الطلب بواسطة النقر على زر "إتمام فتح التعميد" في الواجهة.
-            `.trim(); // إزالة المسافات البيضاء الزائدة
-
-            // يجب ترميز النص ليتناسب مع رابط mailto
-            const encodedBody = encodeURIComponent(body);
+            messageText += `*1- بيانات صاحب الطلب:*\n`;
+            messageText += `الاسم: ${requesterName}\n`;
+            messageText += `الرقم: ${requesterId}\n\n`;
             
-            // بناء رابط mailto
-            const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodedBody}`;
+            messageText += `*2- بيانات مقدم الخدمة:*\n`;
+            messageText += `الاسم: ${providerName}\n`;
+            messageText += `الرقم: ${providerId}\n\n`;
             
-            // فتح عميل البريد الإلكتروني الافتراضي للمستخدم
-            window.location.href = mailtoLink;
+            messageText += `*3- تفاصيل الاتفاق:*\n`;
+            messageText += `تفاصيل الاتفاق:\n${agreementDetails}\n`;
+            messageText += `مدة التعميد: ${baptismPeriod} يوم\n`;
+            messageText += `يوم الانتهاء: ${baptismEndDate}\n\n`;
+            
+            messageText += `*4- تفاصيل الدفع:*\n`;
+            messageText += `مبلغ التعميد: ${servicePrice} ريال سعودي\n`;
+            messageText += `طريقة الدفع: ${paymentMethod}\n\n`;
+            
+            messageText += `يرجى مراجعة الطلب والشروط لبدء الإجراءات.`;
+            
+            // 5. بناء رابط الواتساب (باستخدام WhatsApp API)
+            // نستخدم `encodeURIComponent` لترميز النص ليناسب الرابط.
+            const whatsappLink = `https://wa.me/${phoneNumber.replace(/\s/g, '').replace('+', '')}?text=${encodeURIComponent(messageText)}`;
+            
+            // 6. توجيه المستخدم إلى رابط الواتساب
+            window.open(whatsappLink, '_blank');
         }
     </script>
 
