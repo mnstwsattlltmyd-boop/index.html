@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة واسطة لخدمات التعميد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        /* التنسيقات المخصصة (CSS) لمحاكاة تفاصيل تصميم المنصة */
+        body {
+            font-family: 'Arial', sans-serif; /* خط احتياطي */
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background-color: white;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-inline-end: 10px;
+        }
+
+        .titles .ministry {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0d6efd; /* لون أساسي لمحاكاة التصميم */
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .titles .kingdom {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .nav-link.active {
+            color: #0d6efd !important;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            padding-inline-start: 1rem;
+            padding-inline-end: 1rem;
+        }
+
+        .auth-links a {
+            font-weight: bold;
+            color: #212529;
+            text-decoration: none;
+        }
+
+        .register-link a {
+            color: #0d6efd !important;
+        }
+
+        .dropdown-menu {
+            text-align: right;
+        }
+
+        /* تنسيقات شريط الصور الرئيسي (Slider) */
+        .slider {
+            height: 300px; /* ارتفاع تقديري */
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* تنسيقات شريط الشعارات (Logo Slider) */
+        .logo-slider {
+            background-color: white;
+            padding: 20px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .logo-item img {
+            max-width: 100px;
+            max-height: 50px;
+            object-fit: contain;
+            margin: 0 15px;
+            display: inline-block;
+            opacity: 0.7;
+        }
+
+        /* تنسيقات المحتوى الرئيسي والنماذج */
+        .section-title {
+            color: #0d6efd;
+            border-bottom: 2px solid #0d6efd;
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .col-md-6.text-right, .col-md-6.px-2 {
+            text-align: right;
+        }
+
+        .about li {
+            list-style: none;
+            position: relative;
+            padding-right: 25px;
+            margin-bottom: 10px;
+        }
+
+        .about li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .form-section {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        .form-section h3 {
+            color: #0d6efd;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .service-price h5 {
+            color: #dc3545;
+        }
+        
+        .service-price p {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .payment-options label {
+            margin-inline-end: 20px;
+        }
+
+        .submit-btn {
+            background-color: #28a745; 
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+        
+        .icon-img {
+            max-width: 80px;
+            margin-bottom: 15px;
+        }
+
+        /* تنسيقات التذييل (Footer) */
+        .footer {
+            background-color: #343a40; 
+            color: white;
+            padding: 40px 0 10px 0;
+            margin-top: 30px;
+        }
+
+        .footer-logo {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .parcode-image {
+            max-width: 100px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-link:hover {
+            color: #0d6efd;
+        }
+
+        .terms {
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="header container">
+        <nav dir="rtl" class="navbar navbar-expand-lg navbar-light mx-auto bg-white">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <div class="logo-titles d-flex align-items-center justify-content-center">
+                    <img src="https://minasatwasitsuadi.com/assets/logo.jpeg" alt="Logo" class="logo">
+                    <div class="titles">
+                        <h1 class="ministry">منصة واسطة</h1>
+                        <h2 class="kingdom">لخدمات التعميد</h2>
+                    </div>
+                </div>
+                <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler collapsed">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div id="navbarNav" class="navbar-collapse collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">الرئيسية</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">طلب تعميد</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="faqDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="nav-link dropdown-toggle" href="#">الأسئلة الشائعة</a>
+                            <ul aria-labelledby="faqDropdown" class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">من نحن</a></li>
+                                <li><a class="dropdown-item" href="#">الشروط والأحكام</a></li>
+                                <li><a class="dropdown-item" href="#">عمولة المنصة</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" class="nav-link dropdown-toggle" href="#"> خدماتنا </a>
+                            <ul aria-labelledby="servicesDropdown" class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">إلغاء تعميد</a></li>
+                                <li><a class="dropdown-item" href="#">استرجاع تعميد</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">اتصل بنا</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="auth-links d-flex align-items-center">
+                    <div class="login-link">
+                        <a class="nav-link" href="#">تسجيل دخول</a>
+                    </div>
+                    <div class="register-link">
+                        <a class="nav-link ms-3" href="#">إنشاء حساب</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="slider mt-3">
+            <div class="slide active">
+                <img alt="Banner Image" src="https://minasatwasitsuadi.com/assets/m.png">
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="logo-slider shadow-sm">
+            <div class="logo-slides">
+                <div class="logo-slide d-flex justify-content-around align-items-center">
+                    <div class="logo-item"><img alt="Logo 1" class="logo" src="https://minasatwasitsuadi.com/assets/images.png"></div>
+                    <div class="logo-item"><img alt="Logo 2" class="logo" src="https://minasatwasitsuadi.com/assets/Adl.png"></div>
+                    <div class="logo-item"><img alt="Logo 3" class="logo" src="https://minasatwasitsuadi.com/assets/gaw.png"></div>
+                    <div class="logo-item"><img alt="Logo 4" class="logo" src="https://minasatwasitsuadi.com/assets/est.png"></div>
+                    <div class="logo-item"><img alt="Logo 5" class="logo" src="https://minasatwasitsuadi.com/assets/logo.jpeg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 px-2">
+                <h2 class="section-title text-center">ماذا يعني الاعتماد؟</h2>
+                <p class="text-center"> هو يشير إلى الوساطة المالية في المعاملات نقوم بها إلكترونيا عبر تطبيق الواتساب لضمان الحقوق للطرفين فهي خدمة حجز مبلغ الاتفاق في محفظة التعميد تحت اشرافنا والذي يقوم بدفعه صاحب الطلب إلى منصة اعتماد لفترة التعميد وتحت تنفيذ الشروط المتفق عليها بين الاطراف وهذا لضمان تقديم الخدمة أو المنتج لصاحب الطلب ، فنضمن لصاحب الطلب عدم تحويله مبلغ المعاملة قبل الانجاز لضمان حقه بالتنفيذ وعدم الاحتيال من قبل بعض مقدمي الخدمة ولضمان حق مقدم الخدمة بجدية العملاء وعدم حدوث نزاعات على التحصيل بعد الانجاز اذا قام مقدم الخدم بتنفيذ طلبك طبقاً للاتفاق وفي خلال المدة المتفق عليها يستلم المبلغ في حالة عدم غير ذلك او عدم انجز المعاملة يلغى التعميد تلقاىياً ويسترجع لصاحب الطلب <br><br> وهذا حسب الإتفاق الموضح من قبل صاحب الطلب بنموذج فتح التعميد </p><br>
+                <h5 class="text-right">حيث يجب التأكد من دقة وصحة كافة البيانات الأتية :- </h5>
+                <ul class="about">
+                    <li>تقييم العمليات والإجراءات.</li>
+                    <li>التحقق من توافق المؤسسة مع المعايير.</li>
+                    <li>تحديد الفجوات وتحسين الأداء.</li>
+                    <li>تقديم الخدمات بجودة عالية.</li>
+                    <li>تعزيز ثقة الجمهور.</li>
+                </ul><br><br>
+                <div>
+                    <h5 class="text-center"> بعد تعبئة الطلب وسداد المبلغ يتم إصدار محفظة التعميد وإنشاء قروب التعميد </h5><br>
+                    <p class="text-right">وبعد إرسال البيانات من صاحب الطلب نقوم بفتح التعميد لك في قروب على الواتساب ويقوم بإضافتك وإضافة الطرف الأخر المتفق معه ويتم نشر تفاصيل الإتفاق كاملةً بالقروب ونضمن لك تنفيذ الإتفاق في مقابل نسبة من مبلغ الاتفاق .</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 text-right">
+                <h2 class="section-title text-right">طلب إعتماد خدمة</h2>
+                <form id="baptismForm" novalidate>
+                    <div class="form-section">
+                        <h3>1- بيانات صاحب الطلب</h3>
+                        <div class="form-group">
+                            <label for="requester-name">اسم صاحب الطلب *</label>
+                            <input type="text" id="requester-name" placeholder="اسم صاحب الطلب" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="requester-id">رقم صاحب الطلب *</label>
+                            <input type="text" id="requester-id" placeholder="SA" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>2- بيانات مقدم الخدمة</h3>
+                        <div class="form-group">
+                            <label for="provider-name">اسم مقدم الخدمة *</label>
+                            <input type="text" id="provider-name" placeholder="اسم مقدم الخدمة" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="provider-id">رقم مقدم الخدمة *</label>
+                            <input type="text" id="provider-id" placeholder="SA" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>3- تفاصيل الاتفاق</h3>
+                        <div class="form-group">
+                            <label for="agreement-details">تفاصيل الاتفاق *</label>
+                            <textarea id="agreement-details" placeholder="تفاصيل الاتفاق" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="baptism-period">مدة التعميد بالايام *</label>
+                            <input type="number" id="baptism-period" placeholder="عدد الأيام" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="theDayTheBaptismEnded">يوم انتهاء التعميد *</label>
+                            <input type="text" id="theDayTheBaptismEnded" placeholder="dd/mm/yyyy" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="container p-0">
+                        <div class="service-price row">
+                            <div class="form-group col-md-6">
+                                <label for="servicePrice">مبلغ التعميد *</label>
+                                <input type="number" id="servicePrice" placeholder="سعر الخدمة" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <h5 class="section-title"> رسوم الخدمة : </h5>
+                                <p>50 ريال للمبلغ 500 ريال أو اقل .. <br> 100 ريال للمبلغ 3000 ريال أو اقل .. <br> 3% من مبلغ التعميد اذا اكثر من 3000 ريال .. </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>4- طريقة الدفع</h3>
+                        <div class="form-group">
+                            <label>طريقة الدفع *</label>
+                            <div class="payment-options">
+                                <label><input type="radio" name="paymentMethod" value="تحويل بنكي" required> تحويل بنكي</label>
+                                <label><input type="radio" name="paymentMethod" value="بطاقة ائتمانية"> بطاقة ائتمانية</label>
+                                <label><input type="radio" name="paymentMethod" value="بطاقة مدى"> بطاقة مدى</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex terms">
+                                <input type="checkbox" id="agree-terms" class="ms-2" required>
+                                <label for="agree-terms">أوافق على الشروط والأحكام *</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="submit-btn" onclick="sendBaptismData()">إتمام فتح التعميد</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4 text-center">
+                <img src="https://minasatwasitsuadi.com/assets/%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%A8%D8%AF%D9%88%D9%86%20%D8%B9%D9%86%D9%88%D8%A7%D9%86%20(8).png" alt="الرؤية" class="img-fluid icon-img">
+                <h3>الرؤية</h3>
+                <p>تحقيق التميز في تقديم الخدمات الحكومية بكفاءة وشفافية.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="https://minasatwasitsuadi.com/assets/%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%A8%D8%AF%D9%88%D9%86%20%D8%B9%D9%86%D9%88%D8%A7%D9%86%20(9).png" alt="الرسالة" class="img-fluid icon-img">
+                <h3>الرسالة</h3>
+                <p>ضمان تطبيق معايير الجودة وتحسين الأداء في جميع القطاعات.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="https://minasatwasitsuadi.com/assets/%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%A8%D8%AF%D9%88%D9%86%20%D8%B9%D9%86%D9%88%D8%A7%D9%86%20(10).png" alt="الهدف" class="img-fluid icon-img">
+                <h3>الهدف</h3>
+                <p>تحقيق رؤية 2030 من خلال التحسين المستمر والتطوير المستدام.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="https://minasatwasitsuadi.com/assets/logo.jpeg" alt="وسيط " class="footer-logo">
+                    <p>منصة رقمية معتمدة ومرخصة - المملكة العربية السعودية</p>
+                    <p>وزارة التجارة والاستثمار</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h5>خدماتنا</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">طلب تعميد</a></li>
+                        <li><a href="#">تسجيل دخول</a></li>
+                        <li><a href="#">اتصل بنا</a></li>
+                        <li><img src="https://minasatwasitsuadi.com/assets/parcode.jpg" alt="parcode" class="parcode-image"></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h5>معلومات</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">من نحن</a></li>
+                        <li><a href="#">الشروط والأحكام</a></li>
+                        <li><a href="#">عمولة المنصة</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12 text-center">
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <p>جميع الحقوق محفوظة © بوابة اعتماد الوساطة - المملكة العربية السعودية</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        /**
+         * @brief تقوم بجمع بيانات النموذج وتجهيزها لإرسالها عبر البريد الإلكتروني باستخدام رابط mailto.
+         * * ملاحظة هامة: هذه الدالة تفتح تطبيق البريد الإلكتروني الافتراضي للمستخدم
+         * وتملأ حقول الإرسال، ولا ترسل البريد الإلكتروني بشكل تلقائي.
+         */
+        function sendBaptismData() {
+            const form = document.getElementById('baptismForm');
+            
+            // 1. التحقق من صحة جميع المدخلات في النموذج
+            if (!form.checkValidity()) {
+                // تفعيل التحقق الافتراضي لـ Bootstrap
+                form.classList.add('was-validated');
+                alert('الرجاء إكمال جميع الحقول المطلوبة والموافقة على الشروط والأحكام.');
+                return;
+            }
+            
+            // 2. جمع البيانات من النموذج
+            const requesterName = document.getElementById('requester-name').value;
+            const requesterId = document.getElementById('requester-id').value;
+            const providerName = document.getElementById('provider-name').value;
+            const providerId = document.getElementById('provider-id').value;
+            const agreementDetails = document.getElementById('agreement-details').value;
+            const baptismPeriod = document.getElementById('baptism-period').value;
+            const baptismEndDate = document.getElementById('theDayTheBaptismEnded').value;
+            const servicePrice = document.getElementById('servicePrice').value;
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'لم يُحدد';
+            
+            // 3. تحديد عنوان البريد الإلكتروني المستهدف
+            const targetEmail = 'alhmyryw65@gmail.com';
+            
+            // 4. تنسيق محتوى البريد الإلكتروني
+            // استخدام الرموز التالية لتنسيق نص الرسالة في البريد الإلكتروني:
+            // %0A: سطر جديد (New Line)
+            // %0D: عودة المؤشر (Carriage Return) - يفضل استخدامها مع %0A
+            
+            const subject = 'طلب فتح تعميد جديد - ' + requesterName;
+            
+            let bodyText = `طلب فتح تعميد جديد من منصة واسطة\n\n`;
+            
+            bodyText += `*1- بيانات صاحب الطلب:*\n`;
+            bodyText += `الاسم: ${requesterName}\n`;
+            bodyText += `الرقم: ${requesterId}\n\n`;
+            
+            bodyText += `*2- بيانات مقدم الخدمة:*\n`;
+            bodyText += `الاسم: ${providerName}\n`;
+            bodyText += `الرقم: ${providerId}\n\n`;
+            
+            bodyText += `*3- تفاصيل الاتفاق:*\n`;
+            bodyText += `تفاصيل الاتفاق:\n${agreementDetails}\n`;
+            bodyText += `مدة التعميد: ${baptismPeriod} يوم\n`;
+            bodyText += `يوم الانتهاء: ${baptismEndDate}\n\n`;
+            
+            bodyText += `*4- تفاصيل الدفع:*\n`;
+            bodyText += `مبلغ التعميد: ${servicePrice} ريال سعودي\n`;
+            bodyText += `طريقة الدفع: ${paymentMethod}\n\n`;
+            
+            bodyText += `تمت الموافقة على الشروط والأحكام.`;
+            
+            // 5. بناء رابط mailto:
+            // يجب استخدام encodeURIComponent لترميز الموضوع والنص لضمان التوافق في البريد الإلكتروني.
+            const mailtoLink = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+            
+            // 6. فتح رابط mailto:
+            window.location.href = mailtoLink;
+        }
+    </script>
+
+</body>
+</html>
