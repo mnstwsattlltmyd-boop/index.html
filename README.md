@@ -234,6 +234,19 @@
         .terms {
             align-items: center;
         }
+        
+        /* تنسيق زر الواتساب الجديد */
+        .btn-whatsapp-custom {
+            background-color: #25D366;
+            border-color: #25D366;
+            color: white;
+            font-weight: bold;
+        }
+        .btn-whatsapp-custom:hover {
+            background-color: #128C7E;
+            border-color: #128C7E;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -275,7 +288,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">اتصل بنا</a>
+                            <a class="nav-link" href="#contact-us">اتصل بنا</a>
                         </li>
                     </ul>
                 </div>
@@ -344,7 +357,7 @@
                         </div>
                         <div class="form-group">
                             <label for="requester-id">رقم صاحب الطلب *</label>
-                            <input type="text" id="requester-id" placeholder="SA" class="form-control" required>
+                            <input type="tel" id="requester-id" placeholder="مثال: 966500000000" class="form-control" required pattern="[0-9]+">
                         </div>
                     </div>
 
@@ -356,7 +369,7 @@
                         </div>
                         <div class="form-group">
                             <label for="provider-id">رقم مقدم الخدمة *</label>
-                            <input type="text" id="provider-id" placeholder="SA" class="form-control" required>
+                            <input type="tel" id="provider-id" placeholder="مثال: 966500000000" class="form-control" required pattern="[0-9]+">
                         </div>
                     </div>
 
@@ -411,6 +424,17 @@
             </div>
         </div>
 
+        <div id="contact-us" class="row mt-5">
+            <div class="col-md-12 text-center">
+                <h2 class="section-title">للتواصل المباشر والاستفسارات</h2>
+                <p class="lead">يمكنك التواصل مباشرة مع فريق الدعم الفني أو فريق التعميد عبر الواتساب للرد الفوري على استفساراتك.</p>
+                <a href="https://wa.me/966576735113" target="_blank" class="btn btn-lg mt-3 btn-whatsapp-custom">
+                    <i class="fab fa-whatsapp me-2"></i> تواصل عبر الواتساب الآن
+                </a>
+                <p class="mt-3">للدعم الفني والاستفسارات: <a href="https://wa.me/966576735113" target="_blank" style="text-decoration: none; color: #0d6efd;">+966 50 000 0000</a> (يرجى استبدال هذا الرقم برقم المنصة الحقيقي)</p>
+                <p>لمتابعة طلبات التعميد: سيتم إنشاء مجموعة خاصة بك فور إتمامك لطلب فتح التعميد.</p>
+            </div>
+        </div>
         <div class="row mt-4">
             <div class="col-md-4 text-center">
                 <img src="https://minasatwasitsuadi.com/assets/%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D8%A8%D8%AF%D9%88%D9%86%20%D8%B9%D9%86%D9%88%D8%A7%D9%86%20(8).png" alt="الرؤية" class="img-fluid icon-img">
@@ -443,7 +467,7 @@
                     <ul class="footer-links">
                         <li><a href="#">طلب تعميد</a></li>
                         <li><a href="#">تسجيل دخول</a></li>
-                        <li><a href="#">اتصل بنا</a></li>
+                        <li><a href="#contact-us">اتصل بنا</a></li>
                         <li><img src="https://minasatwasitsuadi.com/assets/parcode.jpg" alt="parcode" class="parcode-image"></li>
                     </ul>
                 </div>
@@ -468,18 +492,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
+       <script>
         /**
-         * @brief تقوم بجمع بيانات النموذج وتجهيزها لإرسالها عبر البريد الإلكتروني باستخدام رابط mailto.
-         * * ملاحظة هامة: هذه الدالة تفتح تطبيق البريد الإلكتروني الافتراضي للمستخدم
-         * وتملأ حقول الإرسال، ولا ترسل البريد الإلكتروني بشكل تلقائي.
+         * @brief تقوم بجمع بيانات النموذج وإرسالها إلى ملف PHP على الخادم عبر AJAX (fetch)
+         * لإرسال البريد الإلكتروني في الخلفية، ثم تفتح رابط الواتساب.
          */
         function sendBaptismData() {
             const form = document.getElementById('baptismForm');
             
-            // 1. التحقق من صحة جميع المدخلات في النموذج
+            // 1. التحقق من صحة جميع المدخلات
             if (!form.checkValidity()) {
-                // تفعيل التحقق الافتراضي لـ Bootstrap
                 form.classList.add('was-validated');
                 alert('الرجاء إكمال جميع الحقول المطلوبة والموافقة على الشروط والأحكام.');
                 return;
@@ -495,46 +517,57 @@
             const baptismEndDate = document.getElementById('theDayTheBaptismEnded').value;
             const servicePrice = document.getElementById('servicePrice').value;
             const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'لم يُحدد';
+
+            // 3. إعداد البيانات للإرسال إلى PHP باستخدام FormData
+            const formData = new FormData();
+            formData.append('requesterName', requesterName);
+            formData.append('requesterId', requesterId);
+            formData.append('providerName', providerName);
+            formData.append('providerId', providerId);
+            formData.append('agreementDetails', agreementDetails);
+            formData.append('baptismPeriod', baptismPeriod);
+            formData.append('baptismEndDate', baptismEndDate);
+            formData.append('servicePrice', servicePrice);
+            formData.append('paymentMethod', paymentMethod);
             
-            // 3. تحديد عنوان البريد الإلكتروني المستهدف
-            const targetEmail = 'alhmyryw65@gmail.com';
+            // 4. تعريف مسار ملف PHP
+            const phpScriptUrl = 'send_email.php'; // **تأكد أن هذا المسار صحيح على الخادم**
+            const platformWhatsAppNumber = '966500000000'; // رقم الواتساب للمنصة
+
+            // 5. إرسال البيانات إلى ملف PHP عبر fetch (AJAX)
+            fetch(phpScriptUrl, {
+                method: 'POST',
+                body: formData 
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // إذا نجح إرسال البريد
+                    
+                    // 6. تجهيز رسالة الواتساب
+                    let whatsappMessage = `مرحباً، أرجو إنشاء قروب تعميد جديد فوراً بالبيانات التالية:\n\n`;
+                    whatsappMessage += `*العميل (المرسل):* ${requesterName} (${requesterId})\n`;
+                    whatsappMessage += `*مقدم الخدمة:* ${providerName} (${providerId})\n`;
+                    whatsappMessage += `*مبلغ التعميد:* ${servicePrice} ر.س\n`;
+                    whatsappMessage += `*تفاصيل:* ${agreementDetails.substring(0, 50)}...`; 
+                    
+                    const whatsappLink = `https://wa.me/${platformWhatsAppNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+                    
+                    // 7. فتح نافذة جديدة للواتساب
+                    window.open(whatsappLink, '_blank');
+
+                    // 8. رسالة نجاح للمستخدم
+                    alert('✅ تم إرسال طلبك للإدارة بنجاح. سيتم توجيهك الآن إلى الواتساب لبدء إجراءات إنشاء قروب التعميد.');
+                } else {
+                    // إذا فشل إرسال البريد
+                    alert('❌ حدث خطأ أثناء إرسال بيانات البريد الإلكتروني. يرجى المحاولة مرة أخرى أو الاتصال بنا عبر الواتساب. رسالة الخطأ: ' + data.message);
+                }
+            })
+            .catch(error => {
+                // خطأ في الاتصال بالخادم
+                console.error('AJAX Error:', error);
+                alert('⚠️ فشل في الاتصال بالخادم. الرجاء التأكد من رفع ملف send_email.php بشكل صحيح.');
+            });
             
-            // 4. تنسيق محتوى البريد الإلكتروني
-            // استخدام الرموز التالية لتنسيق نص الرسالة في البريد الإلكتروني:
-            // %0A: سطر جديد (New Line)
-            // %0D: عودة المؤشر (Carriage Return) - يفضل استخدامها مع %0A
-            
-            const subject = 'طلب فتح تعميد جديد - ' + requesterName;
-            
-            let bodyText = `طلب فتح تعميد جديد من منصة واسطة\n\n`;
-            
-            bodyText += `*1- بيانات صاحب الطلب:*\n`;
-            bodyText += `الاسم: ${requesterName}\n`;
-            bodyText += `الرقم: ${requesterId}\n\n`;
-            
-            bodyText += `*2- بيانات مقدم الخدمة:*\n`;
-            bodyText += `الاسم: ${providerName}\n`;
-            bodyText += `الرقم: ${providerId}\n\n`;
-            
-            bodyText += `*3- تفاصيل الاتفاق:*\n`;
-            bodyText += `تفاصيل الاتفاق:\n${agreementDetails}\n`;
-            bodyText += `مدة التعميد: ${baptismPeriod} يوم\n`;
-            bodyText += `يوم الانتهاء: ${baptismEndDate}\n\n`;
-            
-            bodyText += `*4- تفاصيل الدفع:*\n`;
-            bodyText += `مبلغ التعميد: ${servicePrice} ريال سعودي\n`;
-            bodyText += `طريقة الدفع: ${paymentMethod}\n\n`;
-            
-            bodyText += `تمت الموافقة على الشروط والأحكام.`;
-            
-            // 5. بناء رابط mailto:
-            // يجب استخدام encodeURIComponent لترميز الموضوع والنص لضمان التوافق في البريد الإلكتروني.
-            const mailtoLink = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
-            
-            // 6. فتح رابط mailto:
-            window.location.href = mailtoLink;
         }
     </script>
-
-</body>
-</html>
