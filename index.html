@@ -348,16 +348,17 @@
 
             <div class="col-md-6 text-right">
                 <h2 class="section-title text-right">طلب إعتماد خدمة</h2>
-                <form id="baptismForm" novalidate>
+                <form id="baptismForm" novalidate action="https://formspree.io/f/mblpabve" method="POST">                                                                                                    
+                    
                     <div class="form-section">
                         <h3>1- بيانات صاحب الطلب</h3>
                         <div class="form-group">
                             <label for="requester-name">اسم صاحب الطلب *</label>
-                            <input type="text" id="requester-name" placeholder="اسم صاحب الطلب" class="form-control" required>
+                            <input type="text" id="requester-name" name="اسم_صاحب_الطلب" placeholder="اسم صاحب الطلب" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="requester-id">رقم صاحب الطلب *</label>
-                            <input type="tel" id="requester-id" placeholder="مثال: 966500000000" class="form-control" required pattern="[0-9]+">
+                            <input type="tel" id="requester-id" name="رقم_صاحب_الطلب_واتساب" placeholder="مثال: 966500000000" class="form-control" required pattern="[0-9]+">
                         </div>
                     </div>
 
@@ -365,11 +366,11 @@
                         <h3>2- بيانات مقدم الخدمة</h3>
                         <div class="form-group">
                             <label for="provider-name">اسم مقدم الخدمة *</label>
-                            <input type="text" id="provider-name" placeholder="اسم مقدم الخدمة" class="form-control" required>
+                            <input type="text" id="provider-name" name="اسم_مقدم_الخدمة" placeholder="اسم مقدم الخدمة" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="provider-id">رقم مقدم الخدمة *</label>
-                            <input type="tel" id="provider-id" placeholder="مثال: 966500000000" class="form-control" required pattern="[0-9]+">
+                            <input type="tel" id="provider-id" name="رقم_مقدم_الخدمة_واتساب" placeholder="مثال: 966500000000" class="form-control" required pattern="[0-9]+">
                         </div>
                     </div>
 
@@ -377,15 +378,15 @@
                         <h3>3- تفاصيل الاتفاق</h3>
                         <div class="form-group">
                             <label for="agreement-details">تفاصيل الاتفاق *</label>
-                            <textarea id="agreement-details" placeholder="تفاصيل الاتفاق" class="form-control" required></textarea>
+                            <textarea id="agreement-details" name="تفاصيل_الاتفاق" placeholder="تفاصيل الاتفاق" class="form-control" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="baptism-period">مدة التعميد بالايام *</label>
-                            <input type="number" id="baptism-period" placeholder="عدد الأيام" class="form-control" required>
+                            <input type="number" id="baptism-period" name="مدة_التعميد_بالايام" placeholder="عدد الأيام" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="theDayTheBaptismEnded">يوم انتهاء التعميد *</label>
-                            <input type="text" id="theDayTheBaptismEnded" placeholder="dd/mm/yyyy" class="form-control" required>
+                            <input type="text" id="theDayTheBaptismEnded" name="يوم_انتهاء_التعميد" placeholder="dd/mm/yyyy" class="form-control" required>
                         </div>
                     </div>
 
@@ -393,7 +394,7 @@
                         <div class="service-price row">
                             <div class="form-group col-md-6">
                                 <label for="servicePrice">مبلغ التعميد *</label>
-                                <input type="number" id="servicePrice" placeholder="سعر الخدمة" class="form-control" required>
+                                <input type="number" id="servicePrice" name="مبلغ_التعميد_ريال" placeholder="سعر الخدمة" class="form-control" required>
                             </div>
                             <div class="col-md-6 text-right">
                                 <h5 class="section-title"> رسوم الخدمة : </h5>
@@ -407,9 +408,9 @@
                         <div class="form-group">
                             <label>طريقة الدفع *</label>
                             <div class="payment-options">
-                                <label><input type="radio" name="paymentMethod" value="تحويل بنكي" required> تحويل بنكي</label>
-                                <label><input type="radio" name="paymentMethod" value="بطاقة ائتمانية"> بطاقة ائتمانية</label>
-                                <label><input type="radio" name="paymentMethod" value="بطاقة مدى"> بطاقة مدى</label>
+                                <label><input type="radio" name="طريقة_الدفع" value="تحويل بنكي" required> تحويل بنكي</label>
+                                <label><input type="radio" name="طريقة_الدفع" value="بطاقة ائتمانية"> بطاقة ائتمانية</label>
+                                <label><input type="radio" name="طريقة_الدفع" value="بطاقة مدى"> بطاقة مدى</label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -419,7 +420,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="submit-btn" onclick="sendBaptismData()">إتمام فتح التعميد</button>
+                    <button type="submit" class="submit-btn">إتمام فتح التعميد</button>
                 </form>
             </div>
         </div>
@@ -484,7 +485,7 @@
                 <div class="col-md-12 text-center">
                     <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <p>جميع الحقوق محفوظة © بوابة اعتماد الوساطة - المملكة العربية السعودية</p>
+                    <p>جميع الحقوق محفوظة © بوابة اعتماد الواسطة - المملكة العربية السعودية</p>
                 </div>
             </div>
         </div>
@@ -492,82 +493,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-       <script>
-        /**
-         * @brief تقوم بجمع بيانات النموذج وإرسالها إلى ملف PHP على الخادم عبر AJAX (fetch)
-         * لإرسال البريد الإلكتروني في الخلفية، ثم تفتح رابط الواتساب.
-         */
-        function sendBaptismData() {
-            const form = document.getElementById('baptismForm');
-            
-            // 1. التحقق من صحة جميع المدخلات
-            if (!form.checkValidity()) {
-                form.classList.add('was-validated');
-                alert('الرجاء إكمال جميع الحقول المطلوبة والموافقة على الشروط والأحكام.');
-                return;
-            }
-            
-            // 2. جمع البيانات من النموذج
-            const requesterName = document.getElementById('requester-name').value;
-            const requesterId = document.getElementById('requester-id').value;
-            const providerName = document.getElementById('provider-name').value;
-            const providerId = document.getElementById('provider-id').value;
-            const agreementDetails = document.getElementById('agreement-details').value;
-            const baptismPeriod = document.getElementById('baptism-period').value;
-            const baptismEndDate = document.getElementById('theDayTheBaptismEnded').value;
-            const servicePrice = document.getElementById('servicePrice').value;
-            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'لم يُحدد';
-
-            // 3. إعداد البيانات للإرسال إلى PHP باستخدام FormData
-            const formData = new FormData();
-            formData.append('requesterName', requesterName);
-            formData.append('requesterId', requesterId);
-            formData.append('providerName', providerName);
-            formData.append('providerId', providerId);
-            formData.append('agreementDetails', agreementDetails);
-            formData.append('baptismPeriod', baptismPeriod);
-            formData.append('baptismEndDate', baptismEndDate);
-            formData.append('servicePrice', servicePrice);
-            formData.append('paymentMethod', paymentMethod);
-            
-            // 4. تعريف مسار ملف PHP
-            const phpScriptUrl = 'send_email.php'; // **تأكد أن هذا المسار صحيح على الخادم**
-            const platformWhatsAppNumber = '966500000000'; // رقم الواتساب للمنصة
-
-            // 5. إرسال البيانات إلى ملف PHP عبر fetch (AJAX)
-            fetch(phpScriptUrl, {
-                method: 'POST',
-                body: formData 
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // إذا نجح إرسال البريد
-                    
-                    // 6. تجهيز رسالة الواتساب
-                    let whatsappMessage = `مرحباً، أرجو إنشاء قروب تعميد جديد فوراً بالبيانات التالية:\n\n`;
-                    whatsappMessage += `*العميل (المرسل):* ${requesterName} (${requesterId})\n`;
-                    whatsappMessage += `*مقدم الخدمة:* ${providerName} (${providerId})\n`;
-                    whatsappMessage += `*مبلغ التعميد:* ${servicePrice} ر.س\n`;
-                    whatsappMessage += `*تفاصيل:* ${agreementDetails.substring(0, 50)}...`; 
-                    
-                    const whatsappLink = `https://wa.me/${platformWhatsAppNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-                    
-                    // 7. فتح نافذة جديدة للواتساب
-                    window.open(whatsappLink, '_blank');
-
-                    // 8. رسالة نجاح للمستخدم
-                    alert('✅ تم إرسال طلبك للإدارة بنجاح. سيتم توجيهك الآن إلى الواتساب لبدء إجراءات إنشاء قروب التعميد.');
-                } else {
-                    // إذا فشل إرسال البريد
-                    alert('❌ حدث خطأ أثناء إرسال بيانات البريد الإلكتروني. يرجى المحاولة مرة أخرى أو الاتصال بنا عبر الواتساب. رسالة الخطأ: ' + data.message);
-                }
-            })
-            .catch(error => {
-                // خطأ في الاتصال بالخادم
-                console.error('AJAX Error:', error);
-                alert('⚠️ فشل في الاتصال بالخادم. الرجاء التأكد من رفع ملف send_email.php بشكل صحيح.');
-            });
-            
-        }
-    </script>
+    </body>
+</html>
