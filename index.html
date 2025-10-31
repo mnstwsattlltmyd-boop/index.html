@@ -493,5 +493,37 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // الحصول على النموذج باستخدام مُعرف الهوية (ID)
+        const form = document.getElementById('baptismForm');
+
+        // التأكد من وجود النموذج قبل إضافة مُستمع الحدث
+        if (form) {
+            form.addEventListener('submit', function(event) {
+                // التحقق من صحة إدخالات النموذج (خاصة حقل "أوافق على الشروط والأحكام")
+                if (form.checkValidity() === false) {
+                    // إذا كان النموذج غير صالح، لن نفعل شيئًا (سيقوم المتصفح بإظهار رسائل الأخطاء القياسية)
+                    event.preventDefault(); 
+                    event.stopPropagation();
+                } else {
+                    // إذا كان النموذج صالحًا:
+                    
+                    // 1. إظهار رسالة التنبيه المطلوبة للمستخدم
+                    alert("تم إرسال طلبك سيتم الرد عليك في أقرب وقت على واتساب");
+                    
+                    // 2. السماح للنموذج بالإرسال بشكل طبيعي إلى Formspree
+                }
+                // لتفعيل رسائل التحقق القياسية في Bootstrap
+                form.classList.add('was-validated');
+            }, false);
+        }
+    </script>
+
+</body>
+</html>
+
     </body>
 </html>
