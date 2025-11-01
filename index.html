@@ -520,27 +520,28 @@
                 } else {
                     // إذا كان النموذج صالحًا، نظهر رسالة النجاح الاحترافية (SweetAlert)
                     
+                    
                     Swal.fire({
                         title: '✅ تم بنجاح!',
-                        html: 'تم أستلام طلبك بنجاح عبر المنصة الرسمية المعتمدة، وسيتم التواصل معك قريباً. <br><br> (سيتم تحويلك لصفحة الدفع الآن)',
+                        html: 'تم أستلام طلبك بنجاح عبر المنصة الرسمية المعتمدة، وسيتم التواصل معك قريباً. <br><br> (سيتم تحويلك لصفحة الإرسال التلقائي خلال 4 ثوانٍ)',
                         icon: 'success',
-                        confirmButtonText: 'متابعة وإتمام العملية',
-                        showCancelButton: false,
+                        showConfirmButton: false, // إخفاء زر التأكيد
+                        timer: 4000, // تحديد مؤقت بـ 4000 ميلي ثانية (4 ثواني)
+                        timerProgressBar: true,
                         allowOutsideClick: false,
                         customClass: {
-                            container: 'swal2-arabic-rtl' // لضمان عرض المحتوى بشكل صحيح من اليمين لليسار
-                        }
-                    }).then((result) => {
-                        // إذا ضغط المستخدم على زر "متابعة وإتمام العملية"
-                        if (result.isConfirmed) {
-                            // تعطيل الزر ومنع الضغط المتعدد
+                            container: 'swal2-arabic-rtl' 
+                        },
+                        willClose: () => {
+                            // هذه الوظيفة تعمل عندما ينتهي المؤقت ويتم إغلاق الـ SweetAlert
                             submitButton.disabled = true;
                             submitButton.textContent = 'جاري الإرسال...';
                             
-                            // إرسال النموذج برمجياً
+                            // إرسال النموذج برمجياً فور إغلاق الرسالة
                             form.submit();
                         }
                     });
+
                 }
                 
                 // لإظهار رسائل التحقق القياسية في Bootstrap
