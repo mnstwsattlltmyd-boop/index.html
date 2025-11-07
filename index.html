@@ -253,6 +253,44 @@
             border-color: #128C7E;
             color: white;
         }
+        /* تنسيقات مخصصة لـ SweetAlert2 لمحاكاة تصميم الصورة */
+.swal2-arabic-rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+.swal2-custom-success-modal {
+    /* محاكاة إطار وشكل الرسالة */
+    border-radius: 20px !important;
+    background-color: white !important;
+    padding: 30px !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) !important;
+    font-family: 'Arial', sans-serif; 
+}
+
+.swal2-custom-success-modal .swal2-title {
+    /* محاكاة الخط الأخضر الغامق والحجم */
+    color: #007000 !important; /* أخضر غامق مشابه لعنوان الرسالة في الصورة */
+    font-size: 1.8rem !important; /* حجم خط كبير */
+    font-weight: bold !important;
+    padding-top: 15px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.5rem;
+}
+
+.swal2-custom-success-modal .swal2-html-container {
+    /* محاكاة لون وحجم خط النص التفصيلي */
+    color: #4a4a4a !important; /* لون داكن للوضوح */
+    font-size: 1.1rem !important;
+    font-weight: normal !important;
+    margin-top: 0 !important;
+}
+
+.swal2-custom-icon.swal2-success {
+    /* إخفاء أيقونة SweetAlert الافتراضية إذا كنت تريد الاعتماد على الأيقونة داخل العنوان */
+    /* يمكنك إبقاؤها ظاهرة لتعزيز الإحساس بالنجاح */
+    /* border-color: #28a745 !important; */
+}
     </style>
 </head>
 <body>
@@ -354,7 +392,7 @@
 
             <div class="col-md-6 text-right">
                 <h2 class="section-title text-right">طلب إعتماد خدمة</h2>
-                <form id="baptismForm" novalidate action="https://formspree.io/f/mrboynke" method="POST">                                                                                                    
+               <form id="baptismForm" novalidate action="https://formspree.io/f/mrboynke" method="POST">                                                                                               
                     
                     <div class="form-section">
                         <h3>1- بيانات صاحب الطلب</h3>
@@ -505,50 +543,90 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        const form = document.getElementById('baptismForm');
-        const submitButton = form.querySelector('.submit-btn');
+        <script>
+    const form = document.getElementById('baptismForm');
 
-        if (form) {
-            form.addEventListener('submit', function(event) {
-                // منع الإرسال الافتراضي للنموذج
-                event.preventDefault(); 
-                
-                // التحقق من صحة الإدخالات باستخدام واجهة التحقق القياسية
-                if (form.checkValidity() === false) {
-                    event.stopPropagation();
-                } else {
-                    // إذا كان النموذج صالحًا، نظهر رسالة النجاح الاحترافية (SweetAlert)
-                    
-                    
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            // 1. منع الإرسال الافتراضي للنموذج (وهذا هو أساس البقاء في نفس الصفحة)
+            event.preventDefault(); 
+            
+            // 2. التحقق من صحة الإدخالات
+            if (form.checkValidity() === false) {
+                event.stopPropagation();
+                form.classList.add('was-validated');
+                return; // إيقاف الكود إذا كان هناك خطأ في التحقق
+            } 
+            
+            // 3. تعطيل زر الإرسال وتحميل البيانات
+            const submitButton = form.querySelector('.submit-btn');
+            submitButton.disabled = true;
+            submitButton.textContent = 'جاري الإرسال... ⏳';
+
+            const formData = new FormData(form);
+            const formActionURL = form.getAttribute('action');
+            
+            // 4. إرسال البيانات إلى Formspree باستخدام Fetch API (AJAX)
+            fetch(formActionURL, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    // Formspree لا تحتاج إلى 'Content-Type' عند استخدام FormData
+                    // ولكن يمكن إضافة 'Accept' لتوقع استجابة JSON
+                    'Accept': 'application/json' 
+                }
+            })
+            .then(response => {
+                // 5. التأكد من نجاح الإرسال (Formspree يرجع استجابة OK 200/204 في الغالب)
+                if (response.ok) {
+                    // إظهار رسالة النجاح الاحترافية (SweetAlert)
                     Swal.fire({
-                        title: '✅ تم بنجاح!',
-                        html: 'تم أستلام طلبك بنجاح عبر المنصة الرسمية المعتمدة، وسيتم التواصل معك قريباً. <br><br> (سيتم تحويلك لصفحة الإرسال التلقائي خلال 4 ثوانٍ)',
-                        icon: 'success',
-                        showConfirmButton: false, // إخفاء زر التأكيد
-                        timer: 4000, // تحديد مؤقت بـ 4000 ميلي ثانية (4 ثواني)
+                        title: 'تم استلام طلبك بنجاح', 
+                        html: '<span style="color: #007000; font-weight: bold;">عبر المنصة الرسمية المعتمدة،</span><br>وسيتم التواصل معك قريباً.',
+                        icon: 'success', 
+                        showConfirmButton: false, 
+                        timer: 5000, // 5 ثواني
                         timerProgressBar: true,
                         allowOutsideClick: false,
                         customClass: {
-                            container: 'swal2-arabic-rtl' 
-                        },
-                        willClose: () => {
-                            // هذه الوظيفة تعمل عندما ينتهي المؤقت ويتم إغلاق الـ SweetAlert
-                            submitButton.disabled = true;
-                            submitButton.textContent = 'جاري الإرسال...';
-                            
-                            // إرسال النموذج برمجياً فور إغلاق الرسالة
-                            form.submit();
+                            container: 'swal2-arabic-rtl',
+                            popup: 'swal2-custom-success-modal',
                         }
                     });
 
+                    // مسح حقول النموذج بعد النجاح
+                    form.reset();
+                    // إزالة فئة التحقق لتبدو الحقول نظيفة
+                    form.classList.remove('was-validated'); 
+
+                } else {
+                    // في حالة وجود خطأ من Formspree (مثل خطأ 404 أو 500)
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            // رسالة خطأ محددة
+                            alert(data["errors"].map(error => error["message"]).join(", "));
+                        } else {
+                            alert('فشل الإرسال: حدث خطأ غير معروف.');
+                        }
+                    });
                 }
-                
-                // لإظهار رسائل التحقق القياسية في Bootstrap
-                form.classList.add('was-validated');
-            }, false);
-        }
-    </script>
+            })
+            .catch(error => {
+                // 6. التعامل مع أخطاء الشبكة (مثل عدم الاتصال بالإنترنت)
+                console.error('Network Error:', error);
+                alert('فشل الإرسال: تحقق من اتصالك بالإنترنت.');
+            })
+            .finally(() => {
+                // 7. إعادة تفعيل الزر سواء نجح الإرسال أو فشل
+                submitButton.disabled = false;
+                submitButton.textContent = 'إتمام فتح التعميد';
+            });
+        });
+
+        // هذا الجزء سيبقى كما هو لإظهار رسائل التحقق القياسية
+        form.classList.add('was-validated');
+    }
+</script>
 </body>
 </html>
 
